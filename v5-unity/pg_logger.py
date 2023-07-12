@@ -53,7 +53,7 @@ import pg_encoder
 # upper-bound on the number of executed lines, in order to guard against
 # infinite loops
 #MAX_EXECUTED_LINES = 300
-MAX_EXECUTED_LINES = 1000 # on 2016-05-01, I increased the limit from 300 to 1000 for Python due to popular user demand! and I also improved the warning message
+MAX_EXECUTED_LINES = 3000 # on 2016-05-01, I increased the limit from 300 to 1000 for Python due to popular user demand! and I also improved the warning message
 
 #DEBUG = False
 DEBUG = True
@@ -167,7 +167,7 @@ else:
 ALLOWED_STDLIB_MODULE_IMPORTS = ('math', 'random', 'time', 'datetime',
                           'functools', 'itertools', 'operator', 'string',
                           'collections', 're', 'json',
-                          'heapq', 'bisect', 'copy', 'hashlib', 'typing',
+                          'heapq', 'bisect', 'copy', 'hashlib', 'typing', 'os', 'sys', 'platform',
                           # the above modules were first added in 2012-09
                           # and then incrementally appended to up until
                           # 2016-ish (see git blame logs)

@@ -167,7 +167,7 @@ else:
 ALLOWED_STDLIB_MODULE_IMPORTS = ('math', 'random', 'time', 'datetime',
                           'functools', 'itertools', 'operator', 'string',
                           'collections', 're', 'json',
-                          'heapq', 'bisect', 'copy', 'hashlib', 'typing', 'os', 'sys', 'platform',
+                          'heapq', 'bisect', 'copy', 'hashlib', 'typing',
                           # the above modules were first added in 2012-09
                           # and then incrementally appended to up until
                           # 2016-ish (see git blame logs)

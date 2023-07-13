@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 
 <head>
   <title>Online Python Tutor - iframe embed page</title>
@@ -8,13 +8,45 @@
        create unique filenames for releases:
        https://webpack.github.io/docs/long-term-caching.html -->
   <script type="text/javascript" src="build/iframe-embed.bundle.js?5f90f543ad" charset="utf-8"></script>
-
+  
 </head>
 
 <body>
 
   <div id="vizDiv"></div>
   <div id="frontendErrorOutput"></div>
+  
+  <script type="text/javascript" defer>
 
+    function transformUI() {
+      const interval = setInterval(function () {
+        const codeDiv = document.getElementById('codAndNav');
+        if (codeDiv) {
+          // Hide the "Python 3.6 part"
+          document.getElementById('langDisplayDiv').style.display = 'none';
+          codeDiv.style.width = '650px';
+
+          const progOutputs = document.getElementById('progOutputs');
+          const legendDiv = document.getElementById('legendDiv')
+          const navControlsDiv = document.getElementById('navControlsDiv')
+
+          // donnerc on 2023-07-14 : it breaks the controls do move them around
+          // in the DOM
+          
+          // progOutputs.prepend(legendDiv, navControlsDiv);
+
+          clearInterval(interval);
+        }
+    
+      }, 10);
+
+    }
+
+    transformUI();
+
+  </script>
+  
 </body>
+
+
 </html>

@@ -1,52 +1,90 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Online Python Tutor - iframe embed page</title>
 
-<head>
-  <title>Online Python Tutor - iframe embed page</title>
-
-  <!-- let Webpack take care of everything. Use the [hash] feature to
+    <!-- let Webpack take care of everything. Use the [hash] feature to
        create unique filenames for releases:
        https://webpack.github.io/docs/long-term-caching.html -->
-  <script type="text/javascript" src="build/iframe-embed.bundle.js?5f90f543ad" charset="utf-8"></script>
-  
-</head>
+    <script
+      type="text/javascript"
+      src="build/iframe-embed.bundle.js?5f90f543ad"
+      charset="utf-8"
+    ></script>
+  </head>
 
-<body>
+  <body>
+    <div id="vizDiv"></div>
+    <div id="frontendErrorOutput"></div>
 
-  <div id="vizDiv"></div>
-  <div id="frontendErrorOutput"></div>
-  
-  <script type="text/javascript" defer>
+    <script type="text/javascript" defer>
+      function transformUI() {
+        const interval = setInterval(function () {
+          const codeDiv = document.getElementById("codAndNav");
+          if (codeDiv) {
+            // Hide the "Python 3.6 part"
+            document.getElementById("langDisplayDiv").style.display = "none";
+            codeDiv.style.width = "650px";
 
-    function transformUI() {
-      const interval = setInterval(function () {
-        const codeDiv = document.getElementById('codAndNav');
-        if (codeDiv) {
-          // Hide the "Python 3.6 part"
-          document.getElementById('langDisplayDiv').style.display = 'none';
-          codeDiv.style.width = '650px';
+            const progOutputs = document.getElementById("progOutputs");
+            const legendDiv = document.getElementById("legendDiv");
+            const navControlsDiv = document.getElementById("navControlsDiv");
 
-          const progOutputs = document.getElementById('progOutputs');
-          const legendDiv = document.getElementById('legendDiv')
-          const navControlsDiv = document.getElementById('navControlsDiv')
+            // donnerc on 2023-07-14 : it breaks the controls do move them around
+            // in the DOM
 
-          // donnerc on 2023-07-14 : it breaks the controls do move them around
-          // in the DOM
-          
-          // progOutputs.prepend(legendDiv, navControlsDiv);
+            // progOutputs.prepend(legendDiv, navControlsDiv);
 
-          clearInterval(interval);
+            clearInterval(interval);
+          }
+        }, 10);
+      }
+
+      /**
+      Used to wait for an expression to be truthy, typically for an HTML Element
+      to be loaded in the DOM
+      */
+      function waitForElement(delay, n, getElement, action) {
+        setTimeout(() => {
+          const element = getElement();
+          if (element) {
+            action(element);
+          } else {
+            waitForElement(delay, n - 1, getElement, action);
+          }
+        }, delay);
+      }
+
+      function addControlShortcuts(keyHandlers) {
+        for (const keyCode in keyHandlers) {
+          const keyLetter = keyCode.split("Key")[1];
+          waitForElement(
+            10,
+            1000,
+            () => document.getElementById(keyHandlers[keyCode]),
+            (button) => {
+              button.innerText += ` (${keyLetter.toUpperCase()})`;
+            }
+          );
         }
-    
-      }, 10);
 
-    }
+        const body = document.getElementsByTagName("body")[0];
+        body.addEventListener("keypress", (e) => {
+          const buttonId = keyHandlers[e.code];
+          const button = document.getElementById(buttonId);
+          button.click();
+          console.log("click sur le bouton", button);
+        });
+        console.log("body", body);
+      }
 
-    transformUI();
-
-  </script>
-  
-</body>
-
-
+      transformUI();
+      addControlShortcuts({
+        KeyP: "jmpStepBack",
+        KeyN: "jmpStepFwd",
+        KeyF: "jmpFirstInstr",
+        KeyL: "jmpLastInstr",
+      });
+    </script>
+  </body>
 </html>

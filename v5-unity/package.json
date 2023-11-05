@@ -9,7 +9,7 @@
     "start": "python bottle_server.py",
     "py3start": "python3 bottle_server.py",
     "webpack": "webpack --devtool sourcemap --progress --colors --watch",
-    "production-build": "rm -f build/* && webpack && python add_cache_busting_query_strings.py"
+    "production-build": "rm -f build/* && node ./node_modules/webpack/bin/webpack.js && python add_cache_busting_query_strings.py"
   },
   "dependencies": {
     "css-loader": "",
@@ -22,5 +22,10 @@
     "style-loader": "",
     "ts-loader": "^3.5.0",
     "url-loader": ""
+  },
+  "devDependencies": {
+    "tsd": "^0.28.1",
+    "typescript": "^2.8.3",
+    "webpack": "^3.11.0"
   }
 }

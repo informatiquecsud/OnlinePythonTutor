@@ -447,6 +447,7 @@ def visit_all_locally_reachable_function_objs(frame):
 
 
 # TODO: this might be slow if we're traversing inside lots of objects:
+# recursive function
 def visit_function_obj(v, ids_seen_set):
   v_id = id(v)
 
@@ -1429,7 +1430,7 @@ class PGLogger(bdb.Bdb):
           self.stdout_by_module["<other>"] = StringIO.StringIO() # catch-all for all other modules we're NOT tracing
           sys.stdout = self.stdout_by_module["<other>"] # start with <other>
         else:
-          # default -- a single unified stdout stream
+          # default -- a single unified stdout streamx§
           self.user_stdout = StringIO.StringIO()
           sys.stdout = self.user_stdout
 

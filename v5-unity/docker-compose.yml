@@ -1,0 +1,10 @@
+version: "3"
+services:
+  python_tutor:
+    ports:
+      - "10000:5000"
+    image: donnerc/python_tutor:5.2.4
+    build:
+      context: .
+      dockerfile: Dockerfile
+
